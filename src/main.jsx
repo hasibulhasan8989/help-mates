@@ -1,0 +1,91 @@
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import "./index.css";
+import App from "./App.jsx";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import MainLayout from "./Layout/MainLayout.jsx";
+import Login from "./Pages/Login.jsx";
+
+import Register from "./Pages/Register.jsx";
+import HomePage from "./Pages/Home/HomePage.jsx";
+import AddVolunteer from "./Pages/AddVolunteer.jsx";
+import AuthProvider from "./Providers/AuthProvider.jsx";
+import { ToastContainer } from "react-toastify";
+import NeedVolunteer from "./Pages/NeedVolunteer/NeedVolunteer.jsx";
+import ViewDetails from "./Pages/ViewDetails/ViewDetails.jsx";
+import BeVolunteer from "./Pages/BeVolunteer.jsx";
+import ManageMyPost from "./Pages/Home/ManageMyPost/ManageMyPost.jsx";
+import UpdatePost from "./Pages/UpdatePost/UpdatePost.jsx";
+import MyVolunteerRequest from "./Pages/MyVolunteerRequest/MyVolunteerRequest.jsx";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <MainLayout></MainLayout>,
+    children: [
+      {
+        path: "/",
+        element: <HomePage></HomePage>,
+      },
+      {
+        path: "/login",
+        element: <Login></Login>,
+      },
+      {
+        path: "/register",
+        element: <Register></Register>,
+      },
+      {
+        path: "/add-volunteer",
+        element: <AddVolunteer></AddVolunteer>,
+      },
+      {
+        path: "/need-volunteer",
+        element: <NeedVolunteer></NeedVolunteer>,
+        loader: () => fetch("http://localhost:3000/all-volunteer"),
+      },
+      {
+        path: "/view-details/:id",
+        element: <ViewDetails></ViewDetails>,
+        loader: ({ params }) =>
+          fetch(`http://localhost:3000/volunteer/${params.id}`),
+      },
+      {
+        path:'/be-volunteer/:id',
+        element:<BeVolunteer></BeVolunteer>,
+        loader: ({ params }) =>
+          fetch(`http://localhost:3000/volunteer/${params.id}`)
+
+      },
+      {
+        path:'/my-post/:email',
+        element:<ManageMyPost></ManageMyPost>,
+        loader:({params})=>fetch(`http://localhost:3000/my-post/${params.email}`)
+        
+      },
+      {
+        path:'/my-request/:email',
+        element:<MyVolunteerRequest></MyVolunteerRequest>,
+        loader:({params})=>fetch(`http://localhost:3000/my-request/${params.email}`)
+        
+      },
+      {
+        path:'/update/:id',
+        element:<UpdatePost></UpdatePost>,
+         loader: ({ params }) =>
+          fetch(`http://localhost:3000/volunteer/${params.id}`)
+        
+      }
+
+    ],
+  },
+]);
+
+createRoot(document.getElementById("root")).render(
+  <StrictMode>
+    <AuthProvider>
+      <RouterProvider router={router} />
+      <ToastContainer position="top-center" autoClose={1000}></ToastContainer>
+    </AuthProvider>
+  </StrictMode>
+);
