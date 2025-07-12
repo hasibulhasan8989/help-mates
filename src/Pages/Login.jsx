@@ -1,16 +1,21 @@
 import { FcGoogle } from "react-icons/fc";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaGithub } from "react-icons/fa";
 import useAuth from "../Hooks/useAuth";
 import { toast } from "react-toastify";
 
 const Login = () => {
   const { googleLogIn, signIn } = useAuth();
+  const location=useLocation()
+  const navigate=useNavigate()
+  console.log(location)
 
   const handleGoogleLogIn = async () => {
     try {
       await googleLogIn();
       toast.success("Success");
+
+      location?.state?navigate(location.state):navigate('/')
     } catch (error) {
       console.log(error);
     }
@@ -24,6 +29,7 @@ const Login = () => {
     try {
       const result = await signIn(email, password);
       console.log(result);
+      location?.pathname?navigate(location.pathname):navigate('/')
     } catch (error) {
         toast.error(error.message)
       

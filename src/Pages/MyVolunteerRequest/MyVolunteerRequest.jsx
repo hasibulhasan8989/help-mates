@@ -1,19 +1,48 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useLoaderData } from "react-router-dom";
+import NoDataFound from "../NoData/NoData";
+import Swal from "sweetalert2";
 
 const MyVolunteerRequest = () => {
   const [posts, setPosts] = useState(useLoaderData());
 
   const handleDelete = (id) => {
-    axios.delete(`http://localhost:3000/request-delete/${id}`).then(() => {
+
+    Swal.fire({
+  title: "Are you sure?",
+  text: "You won't be able to revert this!",
+  icon: "warning",
+  showCancelButton: true,
+  confirmButtonColor: "#3085d6",
+  cancelButtonColor: "#d33",
+  confirmButtonText: "Yes, delete it!"
+}).then((result) => {
+  if (result.isConfirmed) {
+
+  axios.delete(`http://localhost:3000/request-delete/${id}`).then(() => {
       const remainPost = posts.filter((post) => post._id !== id);
       setPosts(remainPost);
     });
+
+    
+    Swal.fire({
+      title: "Deleted!",
+      text: "Your file has been deleted.",
+      icon: "success"
+    });
+  }
+});
+
+    
   };
+
+  if(posts.length===0){
+    return <NoDataFound></NoDataFound>
+  }
   return (
     <div>
-      <div className="container p-2 mx-auto mb-20 sm:p-4 dark:text-gray-800">
+      <div className="container p-2 mt-2 mx-auto  sm:p-4 dark:text-gray-800">
         <h2 className="mb-4 text-2xl font-semibold leading-tight">
           Volunteer Request
         </h2>

@@ -1,114 +1,111 @@
 import { Link } from "react-router-dom";
 import useAuth from "../Hooks/useAuth";
 import { toast } from "react-toastify";
+import 'react-tooltip/dist/react-tooltip.css'
+import { Tooltip } from 'react-tooltip'
 
 const Navbar = () => {
   const { logOut, user } = useAuth();
-  
 
   const handleLogOut = async () => {
     try {
       await logOut();
       toast.success("Good Bye");
     } catch (error) {
-      toast.error(error);
-      console.log(error);
+      toast.error(error.message);
+      console.error(error);
     }
   };
 
   const navLinks = (
     <>
-      <li>
-        <Link to={"/"}>Home</Link>
-      </li>
-      <li>
-        <Link to={'/need-volunteer'}>Need Volunteer</Link>
-      </li>
-      {user ? (
-        <li >
-          {" "}
-          <button onClick={handleLogOut}>Logout</button>
-        </li>
-      ) : (
+      <li><Link to="/">Home</Link></li>
+      <li><Link to="/need-volunteer">Need Volunteer</Link></li>
+      {user?'': (<li><Link to="/login">Login</Link></li>
+      )}
+      {user && (
         <li>
-          <Link to={"/login"}>Login</Link>
+          <div className="dropdown  dropdown-center">
+            <div tabIndex={0} role="button" className="cursor-pointer">
+              My Profile
+            </div>
+            <ul className="menu menu-sm dropdown-content bg-white rounded-lg shadow-lg w-56 z-[1000] p-2 mt-2">
+              <li><Link to="/add-volunteer">Add Volunteer Post</Link></li>
+              <li><Link to={`/my-post/${user?.email}`}>Manage My Post</Link></li>
+              <li><Link to={`/my-request/${user?.email}`}>My Requested Posts</Link></li>
+            </ul>
+          </div>
         </li>
       )}
-
-      <li>
-        <div className="dropdown dropdown-end">
-          <div tabIndex={0} role="button" className="cursor-pointer">
-            My Profile
-          </div>
-          <ul
-            tabIndex={0}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
-          >
-            <li>
-              <Link to={"/add-volunteer"}>Add Volunteer Post</Link>
-            </li>
-            <li>
-              <Link to={`/my-post/${user?.email}`}>Manage My Post</Link>
-            </li>
-            <li>
-              <Link to={`/my-request/${user?.email}`} >My Volunteer Requested Post</Link>
-            </li>
-          </ul>
-        </div>
-      </li>
     </>
   );
 
   return (
-    <div className="navbar">
+    <div className="navbar bg-white border-b shadow-md px-4 py-2 sticky top-0 z-50">
+      {/* Navbar Start */}
       <div className="navbar-start">
+        {/* Mobile Menu */}
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
+              className="h-6 w-6 text-gray-700"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
             >
-              {" "}
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h8m-8 6h16"
-              />{" "}
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
             </svg>
           </div>
-          <ul
-            tabIndex={0}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
-          >
+          <ul className="menu menu-sm dropdown-content mt-3 z-[999] p-2 shadow bg-white rounded-box w-60 text-gray-700">
             {navLinks}
           </ul>
         </div>
-        <Link to={'/'} className="font-bold text-xl">helpMates</Link>
+        {/* Brand Name */}
+        <Link to="/" className="text-2xl font-extrabold bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent">
+          helpMates
+        </Link>
       </div>
-      {/* <div className="navbar hidden lg:flex">
-    
-  </div> */}
-      <div className="navbar-end">
-        <ul className="menu menu-horizontal px-1 hidden lg:flex  ">
+
+      {/* Navbar Center (hidden on small screens) */}
+      <div className="navbar-center hidden lg:flex">
+        <ul className="menu menu-horizontal px-1 space-x-2 font-medium text-gray-700">
           {navLinks}
         </ul>
+      </div>
 
-        <div
-          tabIndex={0}
-          role="button"
-          className="btn btn-ghost btn-circle avatar"
-        >
-          <div className="w-10 rounded-full">
-            <img
-              alt="Tailwind CSS Navbar component"
-              src={`${user?.photoURL? user.photoURL: 'https://www.repro.cam.ac.uk/sites/default/files/images/profile/no-photo.png'}`}
-            />
+      {/* Navbar End (Avatar) */}
+      <div className="navbar-end">
+        {user && (
+          <div tabIndex={0} className="btn  dropdown dropdown-left dropdown-hover btn-ghost btn-circle avatar">
+            <div
+              className="w-10 h-10 rounded-full ring   ring-pink-400 "
+             
+            >
+              <img
+                src={
+                  user?.photoURL ||
+                  "https://www.repro.cam.ac.uk/sites/default/files/images/profile/no-photo.png"
+                }
+                alt="User"
+                className="w-full h-full object-cover"
+              />
+
+              <ul  tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-1 w-52  shadow-sm">
+                 {user && <li><button onClick={handleLogOut} className="hover:text-red-600">Logout</button></li>}
+                {
+                  user && <li><button>{user.displayName}</button></li>
+                }
+                
+                 
+              </ul>
+              
+                
+
+            </div>
+            
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

@@ -18,6 +18,7 @@ import ManageMyPost from "./Pages/Home/ManageMyPost/ManageMyPost.jsx";
 import UpdatePost from "./Pages/UpdatePost/UpdatePost.jsx";
 import MyVolunteerRequest from "./Pages/MyVolunteerRequest/MyVolunteerRequest.jsx";
 import ErrorPage from "./Pages/ErrorPage.jsx";
+import PrivateRoute from "./Routes/PrivateRoute.jsx";
 
 const router = createBrowserRouter([
   {
@@ -39,16 +40,16 @@ const router = createBrowserRouter([
       },
       {
         path: "/add-volunteer",
-        element: <AddVolunteer></AddVolunteer>,
+        element: <PrivateRoute><AddVolunteer></AddVolunteer></PrivateRoute>,
       },
       {
         path: "/need-volunteer",
-        element: <NeedVolunteer></NeedVolunteer>,
-        loader: () => fetch("http://localhost:3000/all-volunteer"),
+        element: <NeedVolunteer></NeedVolunteer>
+       
       },
       {
         path: "/view-details/:id",
-        element: <ViewDetails></ViewDetails>,
+        element: <PrivateRoute><ViewDetails></ViewDetails></PrivateRoute>,
         loader: ({ params }) =>
           fetch(`http://localhost:3000/volunteer/${params.id}`),
       },
@@ -61,7 +62,7 @@ const router = createBrowserRouter([
       },
       {
         path:'/my-post/:email',
-        element:<ManageMyPost></ManageMyPost>,
+        element:<PrivateRoute><ManageMyPost></ManageMyPost></PrivateRoute>,
         loader:({params})=>fetch(`http://localhost:3000/my-post/${params.email}`)
         
       },
@@ -73,7 +74,7 @@ const router = createBrowserRouter([
       },
       {
         path:'/update/:id',
-        element:<UpdatePost></UpdatePost>,
+        element:<PrivateRoute><UpdatePost></UpdatePost></PrivateRoute>,
          loader: ({ params }) =>
           fetch(`http://localhost:3000/volunteer/${params.id}`)
         

@@ -1,4 +1,4 @@
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import useAuth from "../Hooks/useAuth";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 const BeVolunteer = () => {
   const volunteerPost = useLoaderData();
   const { user } = useAuth();
+  const navigate=useNavigate()
   const {
     _id,
     thumbnail,
@@ -56,6 +57,7 @@ const BeVolunteer = () => {
    .then(res=>{
     if(res.data.insertedId){
         toast.success("Applied Success")
+        navigate(-1)
         
     }
    })

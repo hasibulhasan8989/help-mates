@@ -1,20 +1,49 @@
 import axios from "axios";
 import { useState } from "react";
 import { Link, useLoaderData } from "react-router-dom";
+import NoDataFound from "../../NoData/NoData";
+import Swal from "sweetalert2";
 
 const ManageMyPost = () => {
     const [posts,setPosts]=useState(useLoaderData())
+	
     
 
     const handleDelete=(id)=>{
-    axios.delete(`http://localhost:3000/post-delete/${id}`)
+
+   Swal.fire({
+  title: "Are you sure?",
+  text: "You won't be able to revert this!",
+  icon: "warning",
+  showCancelButton: true,
+  confirmButtonColor: "#3085d6",
+  cancelButtonColor: "#d33",
+  confirmButtonText: "Yes, delete it!"
+}).then((result) => {
+  if (result.isConfirmed) {
+     axios.delete(`http://localhost:3000/post-delete/${id}`)
     .then(()=>{
      const remainPost=posts.filter(post=>post._id !== id)
      setPosts(remainPost)
     })
+
+    Swal.fire({
+      title: "Deleted!",
+      text: "Your file has been deleted.",
+      icon: "success"
+    });
+  }
+});
+
+
+
+
+    
     }
     
-
+   if(posts.length===0){
+	return <NoDataFound manage={true}></NoDataFound>
+   }
 
     return (
        <div className="container p-2 mx-auto mb-20 sm:p-4 dark:text-gray-800">
