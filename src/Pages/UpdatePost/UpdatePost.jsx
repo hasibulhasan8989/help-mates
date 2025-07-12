@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "react-datepicker/dist/react-datepicker.css";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
 import { toast } from "react-toastify";
 
@@ -9,6 +9,7 @@ import axios from "axios";
 
 const UpdatePost = () => {
   const post = useLoaderData();
+  const navigate=useNavigate()
 
 //   const [category, setCategory] = useState("");
   const [startDate, setStartDate] = useState(new Date());
@@ -52,6 +53,8 @@ const UpdatePost = () => {
     console.log(data)
     if(data.modifiedCount>0){
         toast.success("Updated")
+        navigate(-1)
+      
     }
     if(data.modifiedCount===0){
         toast.error("Match Found")

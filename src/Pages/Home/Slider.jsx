@@ -10,7 +10,10 @@ import 'swiper/css/scrollbar';
 import Banner from './Banner';
 
 const Slider = () => {
-
+   
+  const banner1='https://i.ibb.co/d0bXW6H1/antonino-visalli-RNi-BLy7a-Hck-unsplash.jpg'
+  const banner2='https://i.ibb.co/Tqxgrxyb/matheus-g-o-yy39ndc-Pmd-U-unsplash.jpg'
+  const banner3='https://i.ibb.co/x8YyQkYb/helena-lopes-PGnq-T0r-XWLs-unsplash.jpg'
   const title1='Be the Change, Start Today!'
   const title2='Your Time Can Change Lives'
   const title3='Together, We Make a Better World'
@@ -34,9 +37,9 @@ const Slider = () => {
       navigation
      
     >
-      <SwiperSlide><Banner title={title1} des={des1} ></Banner></SwiperSlide>
-      <SwiperSlide><Banner title={title2} des={des2} ></Banner></SwiperSlide>
-      <SwiperSlide><Banner title={title3} des={des3} ></Banner></SwiperSlide>
+      <SwiperSlide><Banner title={title1} banner={banner1}  des={des1} ></Banner></SwiperSlide>
+      <SwiperSlide><Banner title={title2} banner={banner2} des={des2} ></Banner></SwiperSlide>
+      <SwiperSlide><Banner title={title3} banner={banner3} des={des3} ></Banner></SwiperSlide>
       
      
     

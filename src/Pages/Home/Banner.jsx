@@ -1,11 +1,11 @@
 
-const Banner = ({title,des}) => {
+const Banner = ({title,des,banner}) => {
     return (
         <div
   className="hero min-h-[calc(100vh-100px)] rounded-2xl my-10"
   style={{
     backgroundImage:
-      "url(https://img.daisyui.com/images/stock/photo-1507358522600-9f71e620c44e.webp)",
+      `url(${banner})`,
   }}
 >
   <div className="hero-overlay rounded-2xl"></div>

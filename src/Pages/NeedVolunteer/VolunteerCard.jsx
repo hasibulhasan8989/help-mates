@@ -5,27 +5,37 @@ const VolunteerCard = ({ volunteer }) => {
     _id,
     post_title,
     need_volunteer,
-    
+    thumbnail,
+    deadline,
     location,
   } = volunteer;
 
   return (
-    <div className="card bg-base-100 w-96 shadow-sm">
-      <figure>
+    <div className="bg-white rounded-2xl shadow-md overflow-hidden transition-transform duration-300 hover:-translate-y-1 hover:shadow-xl">
+      <div className="relative">
         <img
-          src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-          alt="Shoes"
+          src={thumbnail}
+          alt={post_title}
+          className="w-full h-56 object-cover"
         />
-      </figure>
-      <div className="card-body">
-        <h2 className="card-title">{post_title}</h2>
-        <p className="font-semibold">
-          Volunteer Need : {need_volunteer}
-        </p>
-        <p className="font-semibold">Location :{location}</p>
-        <div className="card-actions justify-end">
-         <Link to={`/view-details/${_id}`}  className="btn btn-block bg-black text-white">View Details</Link>
+        <div className="absolute top-2 left-2 bg-black bg-opacity-70 text-white text-sm px-3 py-1 rounded-md shadow-md">
+          Volunteers Needed: {need_volunteer}
         </div>
+      </div>
+      <div className="p-5 space-y-2">
+        <h2 className="text-xl font-bold text-gray-800">{post_title}</h2>
+        <p className="text-sm text-gray-600">
+          📍 <span className="font-medium">{location}</span>
+        </p>
+        <p className="text-sm text-gray-600">
+          ⏰ <span className="font-medium">Deadline:</span> {deadline}
+        </p>
+        <Link
+          to={`/view-details/${_id}`}
+          className="block text-center mt-4 px-4 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-md hover:brightness-110 transition"
+        >
+          View Details
+        </Link>
       </div>
     </div>
   );

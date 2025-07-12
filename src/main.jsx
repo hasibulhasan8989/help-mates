@@ -17,11 +17,13 @@ import BeVolunteer from "./Pages/BeVolunteer.jsx";
 import ManageMyPost from "./Pages/Home/ManageMyPost/ManageMyPost.jsx";
 import UpdatePost from "./Pages/UpdatePost/UpdatePost.jsx";
 import MyVolunteerRequest from "./Pages/MyVolunteerRequest/MyVolunteerRequest.jsx";
+import ErrorPage from "./Pages/ErrorPage.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout></MainLayout>,
+    errorElement:<ErrorPage></ErrorPage>,
     children: [
       {
         path: "/",
