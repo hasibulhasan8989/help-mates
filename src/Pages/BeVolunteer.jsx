@@ -2,6 +2,7 @@ import { useLoaderData, useNavigate } from "react-router-dom";
 import useAuth from "../Hooks/useAuth";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { Helmet } from "react-helmet";
 
 const BeVolunteer = () => {
   const volunteerPost = useLoaderData();
@@ -66,6 +67,9 @@ const BeVolunteer = () => {
 
   return (
     <div className="my-10 px-4 md:px-10 py-16 bg-gradient-to-br from-gray-50 to-gray-100 rounded-3xl shadow-lg">
+      <Helmet>
+				<title>BeVolunteer | HelpMates</title>
+			</Helmet>
       <form onSubmit={handleBeVolunteer} className="space-y-10">
         <h2 className="text-3xl font-bold text-center text-gray-800">
           Apply For a Volunteer Post

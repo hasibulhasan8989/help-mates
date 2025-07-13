@@ -2,14 +2,18 @@ import { Link } from "react-router-dom";
 import useAuth from "../Hooks/useAuth";
 import { toast } from "react-toastify";
 import 'react-tooltip/dist/react-tooltip.css'
-import { Tooltip } from 'react-tooltip'
+import useAxiosSecure from "../Providers/useAxiosSecure";
 
 const Navbar = () => {
   const { logOut, user } = useAuth();
+  const axiosSecure=useAxiosSecure()
 
   const handleLogOut = async () => {
     try {
       await logOut();
+      axiosSecure.post('/logout')
+      .then(res=>console.log(res.data))
+      
       toast.success("Good Bye");
     } catch (error) {
       toast.error(error.message);

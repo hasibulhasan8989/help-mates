@@ -3,16 +3,23 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaGithub } from "react-icons/fa";
 import useAuth from "../Hooks/useAuth";
 import { toast } from "react-toastify";
+import axios from "axios";
+import { Helmet } from "react-helmet";
 
 const Login = () => {
   const { googleLogIn, signIn } = useAuth();
   const location=useLocation()
   const navigate=useNavigate()
-  console.log(location)
+
+  
+
 
   const handleGoogleLogIn = async () => {
     try {
-      await googleLogIn();
+      const {user} =await  googleLogIn();
+      console.log(user)
+      axios.post('http://localhost:3000/jwt-token',user,{withCredentials:true})
+      .then(res=>console.log(res.data))
       toast.success("Success");
 
       location?.state?navigate(location.state):navigate('/')
@@ -37,6 +44,9 @@ const Login = () => {
   };
   return (
     <div className="flex justify-center items-center my-10">
+      <Helmet>
+        <title>Login | HelpMates</title>
+      </Helmet>
       <div className=" w-96 bg-gray-200 p-12 rounded-2xl ">
         <h1 className="text-center font-bold text-3xl mb-10">Log In</h1>
         <form onSubmit={handleLogIn}>

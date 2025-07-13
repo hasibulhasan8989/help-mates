@@ -24,7 +24,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout></MainLayout>,
-    errorElement:<ErrorPage></ErrorPage>,
+    errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
         path: "/",
@@ -40,46 +40,57 @@ const router = createBrowserRouter([
       },
       {
         path: "/add-volunteer",
-        element: <PrivateRoute><AddVolunteer></AddVolunteer></PrivateRoute>,
+        element: (
+          <PrivateRoute>
+            <AddVolunteer></AddVolunteer>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/need-volunteer",
-        element: <NeedVolunteer></NeedVolunteer>
-       
+        element: <NeedVolunteer></NeedVolunteer>,
       },
       {
         path: "/view-details/:id",
-        element: <PrivateRoute><ViewDetails></ViewDetails></PrivateRoute>,
+        element: (
+          <PrivateRoute>
+            <ViewDetails></ViewDetails>
+          </PrivateRoute>
+        ),
         loader: ({ params }) =>
           fetch(`http://localhost:3000/volunteer/${params.id}`),
       },
       {
-        path:'/be-volunteer/:id',
-        element:<BeVolunteer></BeVolunteer>,
+        path: "/be-volunteer/:id",
+        element: <BeVolunteer></BeVolunteer>,
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/volunteer/${params.id}`)
-
+          fetch(`http://localhost:3000/volunteer/${params.id}`),
       },
       {
-        path:'/my-post/:email',
-        element:<PrivateRoute><ManageMyPost></ManageMyPost></PrivateRoute>,
-        loader:({params})=>fetch(`http://localhost:3000/my-post/${params.email}`)
-        
+        path: "/my-post/:email",
+        element: (
+          <PrivateRoute>
+            <ManageMyPost></ManageMyPost>
+          </PrivateRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(`http://localhost:3000/my-post/${params.email}`),
       },
       {
-        path:'/my-request/:email',
-        element:<MyVolunteerRequest></MyVolunteerRequest>,
-        loader:({params})=>fetch(`http://localhost:3000/my-request/${params.email}`)
-        
+        path: "/my-request/:email",
+        element: <PrivateRoute><MyVolunteerRequest></MyVolunteerRequest></PrivateRoute> ,
       },
+      
       {
-        path:'/update/:id',
-        element:<PrivateRoute><UpdatePost></UpdatePost></PrivateRoute>,
-         loader: ({ params }) =>
-          fetch(`http://localhost:3000/volunteer/${params.id}`)
-        
-      }
-
+        path: "/update/:id",
+        element: (
+          <PrivateRoute>
+            <UpdatePost></UpdatePost>
+          </PrivateRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(`http://localhost:3000/volunteer/${params.id}`),
+      },
     ],
   },
 ]);

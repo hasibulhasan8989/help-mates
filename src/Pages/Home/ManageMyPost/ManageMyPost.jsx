@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Link, useLoaderData } from "react-router-dom";
 import NoDataFound from "../../NoData/NoData";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet";
 
 const ManageMyPost = () => {
     const [posts,setPosts]=useState(useLoaderData())
@@ -47,6 +48,9 @@ const ManageMyPost = () => {
 
     return (
        <div className="container p-2 mx-auto mb-20 sm:p-4 dark:text-gray-800">
+		<Helmet>
+				<title>Manage Post | HelpMates</title>
+			</Helmet>
 	<h2 className="mb-4 text-2xl font-semibold leading-tight">Invoices</h2>
 	<div className="overflow-x-auto">
 		<table className="min-w-full text-xs">

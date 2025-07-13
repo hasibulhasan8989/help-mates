@@ -1,47 +1,61 @@
 import axios from "axios";
-import React, { useState } from "react";
-import { useLoaderData } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import {  useParams } from "react-router-dom";
 import NoDataFound from "../NoData/NoData";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../Providers/useAxiosSecure";
+import { Helmet } from "react-helmet";
+
+
+
 
 const MyVolunteerRequest = () => {
-  const [posts, setPosts] = useState(useLoaderData());
+  const { email } = useParams();
+  const axiosSecure=useAxiosSecure()
+ 
+    const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    axiosSecure
+      .get(`/my-request/${email}`)
+      .then((res) => setPosts(res.data));
+  }, []);
+
+
 
   const handleDelete = (id) => {
-
     Swal.fire({
-  title: "Are you sure?",
-  text: "You won't be able to revert this!",
-  icon: "warning",
-  showCancelButton: true,
-  confirmButtonColor: "#3085d6",
-  cancelButtonColor: "#d33",
-  confirmButtonText: "Yes, delete it!"
-}).then((result) => {
-  if (result.isConfirmed) {
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios.delete(`http://localhost:3000/request-delete/${id}`).then(() => {
+          const remainPost = posts.filter((post) => post._id !== id);
+          setPosts(remainPost);
+        });
 
-  axios.delete(`http://localhost:3000/request-delete/${id}`).then(() => {
-      const remainPost = posts.filter((post) => post._id !== id);
-      setPosts(remainPost);
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success",
+        });
+      }
     });
-
-    
-    Swal.fire({
-      title: "Deleted!",
-      text: "Your file has been deleted.",
-      icon: "success"
-    });
-  }
-});
-
-    
   };
 
-  if(posts.length===0){
-    return <NoDataFound></NoDataFound>
+  if (posts.length === 0) {
+    return <NoDataFound></NoDataFound>;
   }
   return (
     <div>
+      <Helmet>
+				<title>My Request | HelpMates</title>
+			</Helmet>
       <div className="container p-2 mt-2 mx-auto  sm:p-4 dark:text-gray-800">
         <h2 className="mb-4 text-2xl font-semibold leading-tight">
           Volunteer Request

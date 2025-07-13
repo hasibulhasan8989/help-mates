@@ -1,6 +1,7 @@
 import { toast } from "react-toastify";
 import useAuth from "../Hooks/useAuth";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 
 
@@ -42,6 +43,9 @@ const Register = () => {
 	}
     return (
         <div className="flex justify-center items-center my-10">
+			<Helmet>
+				<title>Register | HelpMates</title>
+			</Helmet>
 			<div className="w-full max-w-lg  p-8  rounded-xl dark:bg-gray-300 dark:text-gray-800">
 	<h1 className="text-2xl font-bold text-center">Register</h1>
 	<form onSubmit={handleRegister} className="space-y-6">
