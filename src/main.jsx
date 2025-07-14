@@ -59,13 +59,13 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/volunteer/${params.id}`),
+          fetch(`https://help-mates-server.vercel.app/volunteer/${params.id}`),
       },
       {
         path: "/be-volunteer/:id",
         element: <PrivateRoute><BeVolunteer></BeVolunteer></PrivateRoute>,
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/volunteer/${params.id}`),
+          fetch(`https://help-mates-server.vercel.app/volunteer/${params.id}`),
       },
       {
         path: "/my-post/:email",
@@ -75,7 +75,7 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/my-post/${params.email}`),
+          fetch(`https://help-mates-server.vercel.app/my-post/${params.email}`),
       },
       {
         path: "/my-request/:email",
@@ -90,7 +90,7 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/volunteer/${params.id}`),
+          fetch(`https://help-mates-server.vercel.app/volunteer/${params.id}`),
       },
     ],
   },

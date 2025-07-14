@@ -45,7 +45,7 @@ const AddVolunteer = () => {
     };
 
     const { data } = await axios.post(
-      `http://localhost:3000/add-volunteer`,
+      `https://help-mates-server.vercel.app/add-volunteer`,
       volunteer
     );
     if (data.insertedId) {

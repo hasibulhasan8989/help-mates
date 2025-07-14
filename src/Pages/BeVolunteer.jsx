@@ -55,7 +55,7 @@ const BeVolunteer = () => {
         return toast.error('No Volunteer Require')
     }
 
-   axios.post(`http://localhost:3000/be-volunteer?id=${_id}`,beVolunteer)
+   axios.post(`https://help-mates-server.vercel.app/be-volunteer?id=${_id}`,beVolunteer)
    .then(res=>{
     if(res.data.insertedId){
         toast.success("Applied Success")

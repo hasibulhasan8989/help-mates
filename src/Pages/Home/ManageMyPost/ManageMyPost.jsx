@@ -23,7 +23,7 @@ const ManageMyPost = () => {
   confirmButtonText: "Yes, delete it!"
 }).then((result) => {
   if (result.isConfirmed) {
-     axios.delete(`http://localhost:3000/post-delete/${id}`)
+     axios.delete(`https://help-mates-server.vercel.app/post-delete/${id}`)
     .then(()=>{
      const remainPost=posts.filter(post=>post._id !== id)
      setPosts(remainPost)

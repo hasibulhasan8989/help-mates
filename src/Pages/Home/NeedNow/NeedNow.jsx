@@ -7,7 +7,7 @@ const NeedNow = () => {
   const [posts, setPosts] = useState([]);
   useEffect(() => {
     axios
-      .get("http://localhost:3000/deadline-volunteer")
+      .get("https://help-mates-server.vercel.app/deadline-volunteer")
       .then((res) => setPosts(res.data));
   }, []);
 

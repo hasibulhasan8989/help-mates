@@ -17,8 +17,7 @@ const MyVolunteerRequest = () => {
     const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    axiosSecure
-      .get(`/my-request/${email}`)
+    axiosSecure(`/my-request/${email}` )
       .then((res) => setPosts(res.data));
   }, []);
 
@@ -35,7 +34,7 @@ const MyVolunteerRequest = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        axios.delete(`http://localhost:3000/request-delete/${id}`).then(() => {
+        axios.delete(`https://help-mates-server.vercel.app/request-delete/${id}`).then(() => {
           const remainPost = posts.filter((post) => post._id !== id);
           setPosts(remainPost);
         });

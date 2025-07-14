@@ -36,7 +36,7 @@ const NeedVolunteer = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/search-volunteer?text=${search}&currentPage=${currentPage}&itemPerPage=${itemPerPage}`)
+      .get(`https://help-mates-server.vercel.app/search-volunteer?text=${search}&currentPage=${currentPage}&itemPerPage=${itemPerPage}`)
       .then((res) => setVolunteer(res.data));
   }, [search,currentPage,itemPerPage]);
 

@@ -51,7 +51,7 @@ const UpdatePost = () => {
   
     
 
-    const { data } = await axios.put(`http://localhost:3000/update/${post._id}`, volunteer);
+    const { data } = await axios.put(`https://help-mates-server.vercel.app/update/${post._id}`, volunteer);
     console.log(data)
     if(data.modifiedCount>0){
         toast.success("Updated")

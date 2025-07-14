@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 const axiosSecure = axios.create({
   withCredentials: true,
-  baseURL: "http://localhost:3000",
+  baseURL: "https://help-mates-server.vercel.app",
 });
 
 const useAxiosSecure = () => {
@@ -18,7 +18,7 @@ const useAxiosSecure = () => {
         return res;
       },
       async (err) => {
-        if (err.response.status === 403 || err.response.status === 403) {
+        if (err.response.status === 401 || err.response.status === 403) {
             
           logOut().then(() => navigate("/login"));
         }

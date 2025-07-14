@@ -19,7 +19,7 @@ const Login = () => {
     try {
       const {user} =await  googleLogIn();
       console.log(user)
-      axios.post('http://localhost:3000/jwt-token',user,{withCredentials:true})
+      axios.post('https://help-mates-server.vercel.app/jwt-token',user,{withCredentials:true})
       .then(res=>console.log(res.data))
       toast.success("Success");
 
