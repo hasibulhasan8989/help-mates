@@ -1,30 +1,35 @@
+import axios from "axios";
+import { useEffect } from "react";
+import useAuth from "../Hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
-
-import axios from 'axios';
+const axiosSecure = axios.create({
+  withCredentials: true,
+  baseURL: "http://localhost:3000",
+});
 
 const useAxiosSecure = () => {
+  const navigate = useNavigate();
+  const { logOut } = useAuth();
 
-    
-
-    const axiosSecure=axios.create({
-        withCredentials:true,
-        baseURL:'http://localhost:3000'
-    })
-
-//     axiosSecure.interceptors.response.use(function (config) {
-    
-//     return config;
-//   }, function (error) {
-//     if(error.status===401||error.status===401){
-//         logOut()
-
-//         console.log("Logout")
-//     }
-//     return Promise.reject(error);
-//   });
-    return (
-        axiosSecure
+  useEffect(() => {
+   axiosSecure.interceptors.response.use(
+      (res) => {
+        return res;
+      },
+      async (err) => {
+        if (err.response.status === 403 || err.response.status === 403) {
+            
+          logOut().then(() => navigate("/login"));
+        }
+        return Promise.reject(err);
+      }
     );
+   
+   
+  }, [navigate,logOut]);
+
+  return axiosSecure;
 };
 
 export default useAxiosSecure;

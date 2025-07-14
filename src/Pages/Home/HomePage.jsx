@@ -1,4 +1,5 @@
-import { Helmet } from "react-helmet";
+
+import { Helmet } from "react-helmet-async";
 import Extra from "./ExtraSection/Extra";
 import NeedNow from "./NeedNow/NeedNow";
 import Slider from "./Slider";

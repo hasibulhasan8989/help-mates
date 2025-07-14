@@ -2,7 +2,8 @@ import { useLoaderData, useNavigate } from "react-router-dom";
 import useAuth from "../Hooks/useAuth";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
+
 
 const BeVolunteer = () => {
   const volunteerPost = useLoaderData();

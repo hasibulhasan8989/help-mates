@@ -4,7 +4,8 @@ import { FaGithub } from "react-icons/fa";
 import useAuth from "../Hooks/useAuth";
 import { toast } from "react-toastify";
 import axios from "axios";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
+
 
 const Login = () => {
   const { googleLogIn, signIn } = useAuth();

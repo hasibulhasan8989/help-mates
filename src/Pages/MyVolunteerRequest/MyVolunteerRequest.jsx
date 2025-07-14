@@ -4,7 +4,8 @@ import {  useParams } from "react-router-dom";
 import NoDataFound from "../NoData/NoData";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../Providers/useAxiosSecure";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
+
 
 
 

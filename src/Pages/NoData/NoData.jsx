@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const NoDataFound = ({manage}) => {
   return (
-    <div className="flex flex-col  my-10 items-center justify-center h-[60vh] text-center px-4">
+    <div className="flex flex-col  overflow-auto my-10 items-center justify-center h-[60vh] text-center px-4">
       <img
         src="https://i.ibb.co/TMp1H7YY/9170826.jpg"
         alt="No Data Found"

@@ -6,7 +6,8 @@ import { toast } from "react-toastify";
 
 import DatePicker from "react-datepicker";
 import axios from "axios";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
+
 
 const UpdatePost = () => {
   const post = useLoaderData();

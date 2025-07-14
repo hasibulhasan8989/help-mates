@@ -4,7 +4,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import useAuth from "../Hooks/useAuth";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
+
 
 const AddVolunteer = () => {
   const [category, setCategory] = useState("");

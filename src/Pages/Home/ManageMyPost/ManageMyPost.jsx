@@ -3,7 +3,8 @@ import { useState } from "react";
 import { Link, useLoaderData } from "react-router-dom";
 import NoDataFound from "../../NoData/NoData";
 import Swal from "sweetalert2";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
+
 
 const ManageMyPost = () => {
     const [posts,setPosts]=useState(useLoaderData())

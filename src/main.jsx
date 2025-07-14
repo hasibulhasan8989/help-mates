@@ -19,6 +19,7 @@ import UpdatePost from "./Pages/UpdatePost/UpdatePost.jsx";
 import MyVolunteerRequest from "./Pages/MyVolunteerRequest/MyVolunteerRequest.jsx";
 import ErrorPage from "./Pages/ErrorPage.jsx";
 import PrivateRoute from "./Routes/PrivateRoute.jsx";
+import { HelmetProvider } from "react-helmet-async";
 
 const router = createBrowserRouter([
   {
@@ -62,7 +63,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/be-volunteer/:id",
-        element: <BeVolunteer></BeVolunteer>,
+        element: <PrivateRoute><BeVolunteer></BeVolunteer></PrivateRoute>,
         loader: ({ params }) =>
           fetch(`http://localhost:3000/volunteer/${params.id}`),
       },
@@ -97,9 +98,12 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <AuthProvider>
+    <HelmetProvider>
+      <AuthProvider>
       <RouterProvider router={router} />
       <ToastContainer position="top-center" autoClose={1000}></ToastContainer>
     </AuthProvider>
+    </HelmetProvider>
+   
   </StrictMode>
 );

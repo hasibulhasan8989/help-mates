@@ -1,12 +1,14 @@
 import { toast } from "react-toastify";
 import useAuth from "../Hooks/useAuth";
 import { Link } from "react-router-dom";
-import { Helmet } from "react-helmet";
+
+import { auth } from "../Firebase/firebaseConfig";
+import { Helmet } from "react-helmet-async";
 
 
 
 const Register = () => {
-	const {createUser,updateUser}=useAuth()
+	const {createUser,updateUser,setUser}=useAuth()
 
 	const handleRegister=async(e)=>{
       e.preventDefault()
@@ -27,7 +29,11 @@ const Register = () => {
 	  try {
 		await createUser(email,password)
 		await updateUser(displayName,photoURL)
+		await auth.currentUser.reload()
+		const newUser=auth.currentUser
+		setUser({...newUser})
 		
+
 		toast.success("Registration Success")
 		e.target.reset()
 		
@@ -68,7 +74,7 @@ const Register = () => {
 				<a rel="noopener noreferrer" href="#">Forgot Password?</a>
 			</div>
 		</div>
-		<button className="block w-full p-2 text-center rounded-sm dark:text-gray-50 dark:bg-violet-600">Sign in</button>
+		<button className="block cursor-pointer w-full p-2 text-center rounded-sm dark:text-gray-50 dark:bg-violet-600">Sign in</button>
 	</form>
 	<div className="flex items-center pt-4 space-x-1">
 		<div className="flex-1 h-px sm:w-16 dark:bg-gray-300"></div>
